@@ -12,19 +12,24 @@ public class Pattern {
 	}
 	
 	public Pattern(int crt,int mch,int wrn) {
-		if (crt + mch + wrn == 4 && crt >= 0 && mch >= 0 && wrn >= 0) { //ensure the sum of patterns are 4
-			numCorrect = crt;
-			numMatched = mch;
-			numWrong = wrn;
-		} else {
-			throw new IllegalArgumentException();
-		}
+		numCorrect = crt;
+		numMatched = mch;
+		numWrong = wrn;
 
 	}
 	public Pattern(String ptn) {
+		if (ptn.length() < 2 || ptn.length() > 3) throw new IllegalArgumentException();
 		numCorrect = Integer.parseInt(ptn.substring(0,1));
 		numMatched = Integer.parseInt(ptn.substring(1,2));
-		numWrong = 4-numCorrect-numMatched;
+		if (ptn.length() == 2) {
+			numWrong = 4-numCorrect-numMatched;
+		} else {
+			numWrong = Integer.parseInt(ptn.substring(2,3));
+		}
+	}
+	
+	public boolean checkValid() {
+		return getCorrect() + getMatched() + getWrong() == 4 && getCorrect() >= 0 && getMatched() >= 0 && getWrong() >= 0;
 	}
 	
 	public int getCorrect() {
