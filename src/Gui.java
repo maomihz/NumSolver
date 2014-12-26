@@ -23,8 +23,10 @@ public class Gui {
 			
 		}
 		
-		System.out.println("You win!!! Your number is: " + g.getNums().get(0));
-
+		if (g.getRemain() != 0)
+			System.out.println("You win!!! Your number is: " + g.getNums().get(0));
+		else
+			System.out.println("There must be something wrong!!!");
 
 	}
 
