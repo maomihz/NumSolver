@@ -40,6 +40,7 @@ public class Combination {
 					return false;
 				}
 			}
+			if (getDigit(i) == 0) return false;
 		}
 		return true;
 	}

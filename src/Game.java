@@ -15,6 +15,11 @@ public class Game {
 	public int getGuessedLength() {
 		return guesses.size();
 	}
+	
+	public Combination getCorrectAns() {
+		return correctAns;
+	}
+	
 	public Pattern makeGuess(Combination g) {
 		Pattern ptn = g.matches(correctAns);
 		guesses.add(new Guess(g, ptn));
