@@ -2,7 +2,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 
-public class CheatedGame extends Game {
+public class CheatedGame {
 	public static LinkedList<Combination> initNumList = new LinkedList<Combination>();
 	static { //This codes are used to initialize initNumlist
 		for (int a=1;a<=9;a++) { //number range 1-9
