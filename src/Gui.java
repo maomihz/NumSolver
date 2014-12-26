@@ -4,10 +4,11 @@ import java.util.Scanner;
 public class Gui {
 
 	public static void main(String[] args) {
-		Game g = new Game();
 		
 		Scanner s = new Scanner(System.in);
 		
+		if (s.nextLine().equals("9999")) {
+		CheatedGame g = new CheatedGame();
 		System.out.println(g.getRemain());
 		while(g.getRemain() > 1) {
 			
@@ -27,7 +28,19 @@ public class Gui {
 			System.out.println("You win!!! Your number is: " + g.getNums().get(0));
 		else
 			System.out.println("There must be something wrong!!!");
-
+		
+		} else {
+		
+		Game g = new Game();
+		System.out.println("Game Started!!!");
+		Pattern theptn;
+		do {
+			System.out.print("Make a guess: ");
+			theptn = g.makeGuess(new Combination(s.nextLine()));
+			System.out.println(theptn);
+		} while(!theptn.equals(Pattern.WINPATTERN));
+		
+		}
 	}
 
 }

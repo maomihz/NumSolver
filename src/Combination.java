@@ -33,6 +33,17 @@ public class Combination {
 			}
 	}
 	
+	private boolean checkValid() {
+		for (int i=0;i<4;i++) {
+			for (int j=0;j<4;j++) {
+				if (i != j && getDigit(i) == getDigit(j)) {
+					return false;
+				}
+			}
+		}
+		return true;
+	}
+	
 	public int getDigit(int index) {
 		return (int)numbers[index];
 	}
@@ -53,10 +64,6 @@ public class Combination {
 				}
 			}
 		}
-//		System.out.println(crt);
-//		System.out.println(mch);
-//		System.out.println(this);
-//		System.out.println(correctAnswer);
 		return new Pattern(crt,mch,4-crt-mch);
 
 	}
@@ -66,4 +73,11 @@ public class Combination {
 		return String.format("%d %d %d %d", numbers[0], numbers[1], numbers[2], numbers[3]);
 	}
 	
+	public static Combination randComb() {
+		Combination cb;
+		do {
+			cb = new Combination((int)(Math.random() * 9000) + 1000);
+		} while(!cb.checkValid()); //loop until is valid
+		return cb;
+	}
 }

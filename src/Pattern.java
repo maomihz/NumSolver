@@ -1,5 +1,8 @@
 
 public class Pattern {
+	
+	public static final Pattern WINPATTERN = new Pattern("40");
+	
 	private int numCorrect;
 	private int numMatched;
 	private int numWrong;
