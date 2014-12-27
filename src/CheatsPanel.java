@@ -8,22 +8,27 @@ import javax.swing.event.*;
 
 public class CheatsPanel extends JPanel implements ActionListener {
 	
-	private CheatedGame g = new CheatedGame();
-	private ArrayList<JLabel> labelsList = new ArrayList<JLabel>();
-	private int currentIndex = 0;
-	private int[] patternList = new int[4];
-	private int patternIndex = 0;
-	private ArrayList<JLabel> numLabelsList = new ArrayList<JLabel>();
-	private int currentLabel = 0;
-	private Combination currentGuess = g.getNextGuess();
+	private CheatedGame g;
+	private ArrayList<JLabel> labelsList;
+	private int currentIndex;
+	private int[] patternList;
+	private int patternIndex;
+	private ArrayList<JLabel> numLabelsList;
+	private int currentLabel;
+	private Combination currentGuess;
 	
 	private JButton btnCorrect, btnMatched, btnWrong;
 	private JButton btnRestart, btnRedo;
 	
-	public CheatsPanel() {
-		setBackground(Color.orange);
-		setLayout(new GridLayout(11,6));
-		
+	private void setup() {
+		g = new CheatedGame();
+		labelsList = new ArrayList<JLabel>();
+		currentIndex = 0;
+		patternList = new int[4];
+		patternIndex = 0;
+		numLabelsList = new ArrayList<JLabel>();
+		currentLabel = 0;
+		currentGuess = g.getNextGuess();
 		
 		for (int i=0;i<10;i++) {
 			JButton btn = new JButton(String.valueOf(i+1));
@@ -31,8 +36,6 @@ public class CheatsPanel extends JPanel implements ActionListener {
 			JLabel label = new JLabel();
 			label.setBackground(Color.green);
 			label.setOpaque(true);
-			label.setAlignmentX(CENTER_ALIGNMENT);
-			label.setAlignmentY(CENTER_ALIGNMENT);
 			add(label);
 			numLabelsList.add(label);
 			
@@ -71,9 +74,19 @@ public class CheatsPanel extends JPanel implements ActionListener {
 		btnRestart.addActionListener(this);
 		add(btnRestart);
 		
-		btnRedo = new JButton("Redo");
+		btnRedo = new JButton("Undo");
 		btnRestart.addActionListener(this);
 		add(btnRedo);
+		
+	}
+	
+	public CheatsPanel() {
+		setBackground(Color.orange);
+		setLayout(new GridLayout(11,6));
+		
+		setup();
+		
+
 	}
 	
 	public void actionPerformed(ActionEvent event) {
@@ -93,6 +106,10 @@ public class CheatsPanel extends JPanel implements ActionListener {
 			currentIndex++;
 			patternList[patternIndex] = Pattern.WRONG;
 			patternIndex++;
+		} else if (source == btnRestart) {
+			removeAll();
+			setup();
+			return;
 		}
 		
 		// Make a guess
