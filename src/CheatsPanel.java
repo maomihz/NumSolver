@@ -21,6 +21,7 @@ public class CheatsPanel extends JPanel implements ActionListener {
 	private JButton btnRestart, btnRedo;
 	
 	private void setup() {
+		removeAll();
 		g = new CheatedGame();
 		labelsList = new ArrayList<JLabel>();
 		currentIndex = 0;
@@ -80,6 +81,7 @@ public class CheatsPanel extends JPanel implements ActionListener {
 		
 	}
 	
+	
 	public CheatsPanel() {
 		setBackground(Color.orange);
 		setLayout(new GridLayout(11,6));
@@ -107,9 +109,7 @@ public class CheatsPanel extends JPanel implements ActionListener {
 			patternList[patternIndex] = Pattern.WRONG;
 			patternIndex++;
 		} else if (source == btnRestart) {
-			removeAll();
 			setup();
-			return;
 		}
 		
 		// Make a guess
@@ -119,6 +119,11 @@ public class CheatsPanel extends JPanel implements ActionListener {
 			currentGuess = g.getNextGuess();
 			numLabelsList.get(currentLabel).setText(currentGuess.toString());
 			currentLabel++;
+			if (g.getRemain() <= 1) {
+				JOptionPane.showMessageDialog(this, "Correct Answer is: " + g.getNextGuess() + ", Game will restart...","I win!!!", JOptionPane.INFORMATION_MESSAGE);
+				setup();
+			}
+			
 		}
 		
 	}
