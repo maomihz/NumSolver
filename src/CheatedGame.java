@@ -24,7 +24,6 @@ public class CheatedGame {
 	private List<Combination> numList;
 	
 	public CheatedGame() {
-		super();
 		numList = initNumList;
 	}
 	
@@ -34,6 +33,10 @@ public class CheatedGame {
 	
 	public int getRemain() {
 		return numList.size();
+	}
+	
+	public Combination getNextGuess() {
+		return numList.get((int)(Math.random() * getRemain()));
 	}
 	
 	public void makeGuess(Guess g) {

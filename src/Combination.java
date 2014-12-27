@@ -33,6 +33,13 @@ public class Combination {
 			}
 	}
 	
+	/*
+	 * checks if the combination is valid, 
+	 * a combination is valid if:
+	 * 1. There is no repetitive digits
+	 * 2. the length is 4 (but it will throw IllegalArgumentException when constructs)
+	 * 3. digits are between 1 - 9
+	 */
 	private boolean checkValid() {
 		for (int i=0;i<4;i++) {
 			for (int j=0;j<4;j++) {
@@ -45,9 +52,13 @@ public class Combination {
 		return true;
 	}
 	
+	/*
+	 * return the specified digit
+	 */
 	public int getDigit(int index) {
 		return (int)numbers[index];
 	}
+	
 	
 	public Pattern matches(Combination correctAnswer) {		
 		int crt = 0;
@@ -74,11 +85,23 @@ public class Combination {
 		return String.format("%d %d %d %d", numbers[0], numbers[1], numbers[2], numbers[3]);
 	}
 	
+	public boolean equals(Object anotherCombination) {
+		Combination c = (Combination)anotherCombination;
+		for (int i=0;i<4;i++) {
+			if (numbers[i] != c.getDigit(i)) return false;
+		}
+		return true;
+	}
+	
 	public static Combination randComb() {
 		Combination cb;
 		do {
 			cb = new Combination((int)(Math.random() * 9000) + 1000);
 		} while(!cb.checkValid()); //loop until is valid
 		return cb;
+	}
+	
+	public static Pattern matches(Combination ans, Combination correctAns) {
+		return ans.matches(correctAns);
 	}
 }
