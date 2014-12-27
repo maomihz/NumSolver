@@ -18,7 +18,7 @@ public class CheatsPanel extends JPanel implements ActionListener {
 	private Combination currentGuess;
 	
 	private JButton btnCorrect, btnMatched, btnWrong;
-	private JButton btnRestart, btnRedo;
+	private JButton btnRestart, btnUndo;
 	
 	private void setup() {
 		removeAll();
@@ -75,9 +75,9 @@ public class CheatsPanel extends JPanel implements ActionListener {
 		btnRestart.addActionListener(this);
 		add(btnRestart);
 		
-		btnRedo = new JButton("Undo");
-		btnRestart.addActionListener(this);
-		add(btnRedo);
+		btnUndo = new JButton("Undo");
+		btnUndo.addActionListener(this);
+		add(btnUndo);
 		
 	}
 	
@@ -110,6 +110,16 @@ public class CheatsPanel extends JPanel implements ActionListener {
 			patternIndex++;
 		} else if (source == btnRestart) {
 			setup();
+		} else if (source == btnUndo) {
+			if (patternIndex > 0) {
+				patternList[patternIndex] = 0;
+				labelsList.get(currentIndex-1).setIcon(null);
+				currentIndex--;
+				patternIndex--;
+				System.out.println(currentIndex);
+				System.out.println(patternIndex);
+				return;
+			}
 		}
 		
 		// Make a guess

@@ -29,6 +29,7 @@ public class CheatedGame {
 		for (Combination c : initNumList) {
 			numList.add(c);
 		}
+		changeHistory = new LinkedList<List<Combination>>();
 	}
 	
 	public List<Combination> getNums() {
