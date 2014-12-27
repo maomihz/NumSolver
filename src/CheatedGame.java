@@ -24,7 +24,10 @@ public class CheatedGame {
 	private List<Combination> numList;
 	
 	public CheatedGame() {
-		numList = initNumList;
+		numList = new LinkedList<Combination>();
+		for (Combination c : initNumList) {
+			numList.add(c);
+		}
 	}
 	
 	public List<Combination> getNums() {
