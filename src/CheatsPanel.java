@@ -116,13 +116,20 @@ public class CheatsPanel extends JPanel implements ActionListener {
 		if (patternIndex == 4) {
 			patternIndex = 0;
 			g.makeGuess(new Guess(currentGuess, new Pattern(patternList)));
+			if (g.getRemain() <= 1) {
+				if (g.getRemain() == 0) {
+					JOptionPane.showMessageDialog(this, "Hey, I'm confused! There must be something wrong!", "I can't...", JOptionPane.WARNING_MESSAGE);
+					setup();
+					return;
+				}
+				JOptionPane.showMessageDialog(this, "Correct Answer is: " + g.getNextGuess() + ", Game will restart...","I win!!!", JOptionPane.INFORMATION_MESSAGE);
+				setup();
+				return;
+			}
 			currentGuess = g.getNextGuess();
 			numLabelsList.get(currentLabel).setText(currentGuess.toString());
 			currentLabel++;
-			if (g.getRemain() <= 1) {
-				JOptionPane.showMessageDialog(this, "Correct Answer is: " + g.getNextGuess() + ", Game will restart...","I win!!!", JOptionPane.INFORMATION_MESSAGE);
-				setup();
-			}
+
 			
 		}
 		
