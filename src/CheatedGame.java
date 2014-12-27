@@ -22,6 +22,7 @@ public class CheatedGame {
 	}
 	
 	private List<Combination> numList;
+	private List<List<Combination>> changeHistory;
 	
 	public CheatedGame() {
 		numList = new LinkedList<Combination>();
@@ -34,6 +35,10 @@ public class CheatedGame {
 		return numList;
 	}
 	
+	public List<Combination> getHistory(int num) {
+		return changeHistory.get(changeHistory.size() - num);
+	}
+	
 	public int getRemain() {
 		return numList.size();
 	}
@@ -43,13 +48,16 @@ public class CheatedGame {
 	}
 	
 	public void makeGuess(Guess g) {
+		List<Combination> hisList = new LinkedList<Combination>();
 		for (int i=0;i<numList.size();i++) {
 			Combination num = numList.get(i);
 			if (!g.getComb().matches(numList.get(i)).equals(g.getPtn())) {
-				numList.remove(i);
+				hisList.add(numList.remove(i));
 				i--;
 			}
 		}
+		
+		changeHistory.add(hisList);
 		
 	}
 	
