@@ -1,12 +1,16 @@
 import javax.swing.JPanel;
+
 import java.awt.*;
+
 import javax.swing.*;
+
 import java.util.ArrayList;
 import java.awt.event.*;
+
 import javax.swing.event.*;
 
 
-public class CheatsPanel extends JPanel implements ActionListener {
+public class CheatsPanel extends JPanel implements ActionListener, KeyListener {
 	
 	private CheatedGame g;
 	private int currentIndex; //Start from 0 and when there's input +1 undo -1
@@ -30,17 +34,20 @@ public class CheatsPanel extends JPanel implements ActionListener {
 		guessHistory = new ArrayList<Guess>();
 		
 		for (int i=0;i<10;i++) {
-			JButton btn = new JButton(String.valueOf(i+1));
+			JLabel btn = new JLabel(String.valueOf(i+1));
+			btn.setHorizontalAlignment(SwingConstants.CENTER);
 			add(btn);
 			JLabel label = new JLabel();
 			label.setBackground(Color.green);
 			label.setOpaque(true);
+			label.setHorizontalAlignment(SwingConstants.CENTER);
 			add(label);
 			numLabelsList.add(label);
 			
 			JLabel[] results = new JLabel[4];
 			for (int a=0;a<4;a++) {
 				results[a] = new JLabel();
+				results[a].setHorizontalAlignment(SwingConstants.CENTER);
 				add(results[a]);
 				labelsList.add(results[a]);
 			}
@@ -83,22 +90,81 @@ public class CheatsPanel extends JPanel implements ActionListener {
 		setBackground(Color.orange);
 		setLayout(new GridLayout(11,6));
 		setup();
+		addKeyListener(this);
+		this.requestFocus();
+	}
+	
+	private void addResult(int type) {
+		switch (type) {
+		case Pattern.CORRECT:
+			labelsList.get(currentIndex).setIcon(new CorrectIcon());
+			patternList[currentIndex % 4] = Pattern.CORRECT;
+			break;
+		case Pattern.MATCHED:
+			labelsList.get(currentIndex).setIcon(new MatchedIcon());
+			patternList[currentIndex % 4] = Pattern.MATCHED;
+			break;
+		case Pattern.WRONG:
+			labelsList.get(currentIndex).setIcon(new WrongIcon());
+			patternList[currentIndex % 4] = Pattern.WRONG;
+			break;
+		default:
+		}
+		currentIndex++;
+		
+		// Make a guess
+		if (currentIndex % 4 == 0) {
+			Guess theGuess = new Guess(currentGuess, new Pattern(patternList));
+			g.makeGuess(theGuess);
+			guessHistory.add(theGuess);
+			if (g.getRemain() <= 1) {
+				if (g.getRemain() == 0) {
+					JOptionPane.showMessageDialog(this, "Hey, I'm confused! There must be something wrong!", "I can't...", JOptionPane.WARNING_MESSAGE);
+					setup();
+					return;
+				}
+				JOptionPane.showMessageDialog(this, "Correct Answer is: " + g.getNextGuess() + ", Game will restart...","I win!!!", JOptionPane.INFORMATION_MESSAGE,new Icon() {
+					public void paintIcon(Component c, Graphics g, int x, int y) {}
+					public int getIconWidth() {return 0;}
+					public int getIconHeight() {return 0;}
+				});
+				setup();
+				return;
+			}
+			currentGuess = g.getNextGuess();
+			numLabelsList.get(currentIndex / 4).setText(currentGuess.toString());
+		}
+	}
+	
+	public void keyPressed(KeyEvent event) {
+		switch(event.getKeyCode()) {
+		case KeyEvent.VK_Q:
+			addResult(Pattern.CORRECT);
+			break;
+		case KeyEvent.VK_W:
+			addResult(Pattern.MATCHED);
+			break;
+		case KeyEvent.VK_E:
+			addResult(Pattern.WRONG);
+			break;
+		default:
+		}
+	}
+	public void keyReleased(KeyEvent event) {
+		
+	}
+	public void keyTyped(KeyEvent event) {
+
 	}
 	
 	public void actionPerformed(ActionEvent event) {
 		JButton source = (JButton)(event.getSource());
 		if (source == btnCorrect) {
-			labelsList.get(currentIndex).setIcon(new CorrectIcon());
-			patternList[currentIndex % 4] = Pattern.CORRECT;
-			currentIndex++;
+			addResult(Pattern.CORRECT);
 		} else if (source == btnMatched) {
-			labelsList.get(currentIndex).setIcon(new MatchedIcon());
-			patternList[currentIndex % 4] = Pattern.MATCHED;
-			currentIndex++;
+			addResult(Pattern.MATCHED);
 		} else if (source == btnWrong) {
-			labelsList.get(currentIndex).setIcon(new WrongIcon());
-			patternList[currentIndex % 4] = Pattern.WRONG;
-			currentIndex++;
+			addResult(Pattern.WRONG);
 		} else if (source == btnRestart) {
 			setup();
 			return;
@@ -117,29 +183,8 @@ public class CheatsPanel extends JPanel implements ActionListener {
 				numLabelsList.get(currentIndex / 4).setText(null);
 				currentIndex--;
 			}
-			return;
 		}
 		
-		// Make a guess
-		if (currentIndex % 4 == 0) {
-			Guess theGuess = new Guess(currentGuess, new Pattern(patternList));
-			g.makeGuess(theGuess);
-			guessHistory.add(theGuess);
-			if (g.getRemain() <= 1) {
-				if (g.getRemain() == 0) {
-					JOptionPane.showMessageDialog(this, "Hey, I'm confused! There must be something wrong!", "I can't...", JOptionPane.WARNING_MESSAGE);
-					setup();
-					return;
-				}
-				JOptionPane.showMessageDialog(this, "Correct Answer is: " + g.getNextGuess() + ", Game will restart...","I win!!!", JOptionPane.INFORMATION_MESSAGE);
-				setup();
-				return;
-			}
-			currentGuess = g.getNextGuess();
-			numLabelsList.get(currentIndex / 4).setText(currentGuess.toString());
-
-			
-		}
-		
+		requestFocus();
 	}
 }

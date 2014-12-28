@@ -11,7 +11,7 @@ public class Gui extends JFrame {
 		setLocationRelativeTo(null);
 		setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		setLayout(new BorderLayout());
-		setResizable(false);
+		//setResizable(false);
 	}
 
 	public static void main(String[] args) {
@@ -20,7 +20,7 @@ public class Gui extends JFrame {
 		CheatsPanel p = new CheatsPanel();
 		window.getContentPane().add(p, BorderLayout.CENTER);
 		window.setVisible(true);
-
+		p.requestFocus();
 	}
 
 }
