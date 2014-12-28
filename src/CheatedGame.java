@@ -22,14 +22,14 @@ public class CheatedGame {
 	}
 	
 	private List<Combination> numList;
-	private List<List<Combination>> changeHistory;
+	private List<List<Combination>> historyList;
 	
 	public CheatedGame() {
 		numList = new LinkedList<Combination>();
 		for (Combination c : initNumList) {
 			numList.add(c);
 		}
-		changeHistory = new LinkedList<List<Combination>>();
+		historyList = new LinkedList<List<Combination>>();
 	}
 	
 	public List<Combination> getNums() {
@@ -37,7 +37,20 @@ public class CheatedGame {
 	}
 	
 	public List<Combination> getHistory(int num) {
-		return changeHistory.get(changeHistory.size() - num);
+		return historyList.get(historyList.size() - num);
+	}
+	
+	public void revert(int guess) {
+		if (guess <= 0) {
+			throw new IllegalArgumentException();
+		}
+		for (int i=0;i<guess;i++) {
+			List<Combination> prev = historyList.remove(historyList.size() - 1);
+			for (Combination c : prev) {
+				numList.add(c);
+			}
+		}
+
 	}
 	
 	public int getRemain() {
@@ -52,13 +65,13 @@ public class CheatedGame {
 		List<Combination> hisList = new LinkedList<Combination>();
 		for (int i=0;i<numList.size();i++) {
 			Combination num = numList.get(i);
-			if (!g.getComb().matches(numList.get(i)).equals(g.getPtn())) {
+			if (!g.getComb().matches(num).equals(g.getPtn())) {
 				hisList.add(numList.remove(i));
 				i--;
 			}
 		}
 		
-		changeHistory.add(hisList);
+		historyList.add(hisList);
 		
 	}
 	

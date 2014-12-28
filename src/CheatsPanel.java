@@ -9,11 +9,12 @@ import javax.swing.event.*;
 public class CheatsPanel extends JPanel implements ActionListener {
 	
 	private CheatedGame g;
-	private int currentIndex;
+	private int currentIndex; //Start from 0 and when there's input +1 undo -1
 	private ArrayList<JLabel> labelsList;
 	private int[] patternList;
 	private ArrayList<JLabel> numLabelsList;
 	private Combination currentGuess;
+	private ArrayList<Guess> guessHistory;
 	
 	private JButton btnCorrect, btnMatched, btnWrong;
 	private JButton btnRestart, btnUndo;
@@ -26,6 +27,7 @@ public class CheatsPanel extends JPanel implements ActionListener {
 		patternList = new int[4];
 		numLabelsList = new ArrayList<JLabel>();
 		currentGuess = g.getNextGuess();
+		guessHistory = new ArrayList<Guess>();
 		
 		for (int i=0;i<10;i++) {
 			JButton btn = new JButton(String.valueOf(i+1));
@@ -104,13 +106,24 @@ public class CheatsPanel extends JPanel implements ActionListener {
 				patternList[currentIndex % 4] = 0;
 				labelsList.get(currentIndex - 1).setIcon(null);
 				currentIndex--;
+			} else if (currentIndex != 0) {
+				g.revert(1);
+				Guess prevGuess = guessHistory.remove(guessHistory.size() - 1);
+				currentGuess = prevGuess.getComb();
+				patternList = prevGuess.getPtn().toArray();
+				patternList[currentIndex % 4] = 0;
+				labelsList.get(currentIndex - 1).setIcon(null);
+				numLabelsList.get(currentIndex / 4).setText(null);
+				currentIndex--;
 			}
 			return;
 		}
 		
 		// Make a guess
 		if (currentIndex % 4 == 0) {
-			g.makeGuess(new Guess(currentGuess, new Pattern(patternList)));
+			Guess theGuess = new Guess(currentGuess, new Pattern(patternList));
+			g.makeGuess(theGuess);
+			guessHistory.add(theGuess);
 			if (g.getRemain() <= 1) {
 				if (g.getRemain() == 0) {
 					JOptionPane.showMessageDialog(this, "Hey, I'm confused! There must be something wrong!", "I can't...", JOptionPane.WARNING_MESSAGE);

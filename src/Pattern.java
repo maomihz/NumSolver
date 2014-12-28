@@ -80,6 +80,23 @@ public class Pattern {
 		return icons;
 		
 	}
+	public int[] toArray() {
+		int[] ary = new int[4];
+		int index = 0;
+		for (int i=0;i<numCorrect;i++) {
+			ary[index] = CORRECT;
+			index++;
+		}
+		for (int i=0;i<numMatched;i++) {
+			ary[index] = MATCHED;
+			index++;
+		}
+		for (int i=0;i<numWrong;i++) {
+			ary[index] = WRONG;
+			index++;
+		}
+		return ary;
+	}
 	
 	public boolean equals(Object anotherPattern) {
 		Pattern another = (Pattern)anotherPattern;
