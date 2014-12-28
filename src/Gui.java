@@ -11,7 +11,7 @@ public class Gui extends JFrame {
 		setLocationRelativeTo(null);
 		setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		setLayout(new BorderLayout());
-		//setResizable(false);
+		setResizable(false);
 	}
 
 	public static void main(String[] args) {

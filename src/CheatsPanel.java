@@ -21,7 +21,7 @@ public class CheatsPanel extends JPanel implements ActionListener, KeyListener {
 	private ArrayList<Guess> guessHistory;
 	
 	private JButton btnCorrect, btnMatched, btnWrong;
-	private JButton btnRestart, btnUndo;
+	private JButton btnRestart, btnUndo, btnAbout;
 	
 	private void setup() {
 		removeAll();
@@ -83,6 +83,15 @@ public class CheatsPanel extends JPanel implements ActionListener, KeyListener {
 		btnUndo.addActionListener(this);
 		add(btnUndo);
 		
+		btnAbout = new JButton("About");
+		btnAbout.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent event) {
+				JOptionPane.showMessageDialog(CheatsPanel.this, "Author: MaomiHz\nTwitter: @MaomiHz\nHFLS Developer Team", "About", JOptionPane.INFORMATION_MESSAGE);
+				CheatsPanel.this.requestFocus();
+			}
+		});
+		add(btnAbout);
+		
 	}
 	
 	
@@ -139,12 +148,18 @@ public class CheatsPanel extends JPanel implements ActionListener, KeyListener {
 	public void keyPressed(KeyEvent event) {
 		switch(event.getKeyCode()) {
 		case KeyEvent.VK_Q:
+		case KeyEvent.VK_A:
+		case KeyEvent.VK_Z:
 			addResult(Pattern.CORRECT);
 			break;
 		case KeyEvent.VK_W:
+		case KeyEvent.VK_S:
+		case KeyEvent.VK_X:
 			addResult(Pattern.MATCHED);
 			break;
 		case KeyEvent.VK_E:
+		case KeyEvent.VK_D:
+		case KeyEvent.VK_C:
 			addResult(Pattern.WRONG);
 			break;
 		default:
