@@ -9,11 +9,10 @@ import javax.swing.event.*;
 public class CheatsPanel extends JPanel implements ActionListener {
 	
 	private CheatedGame g;
-	private ArrayList<JLabel> labelsList;
 	private int currentIndex;
+	private ArrayList<JLabel> labelsList;
 	private int[] patternList;
 	private ArrayList<JLabel> numLabelsList;
-	private int currentLabel;
 	private Combination currentGuess;
 	
 	private JButton btnCorrect, btnMatched, btnWrong;
@@ -26,7 +25,6 @@ public class CheatsPanel extends JPanel implements ActionListener {
 		currentIndex = 0;
 		patternList = new int[4];
 		numLabelsList = new ArrayList<JLabel>();
-		currentLabel = 0;
 		currentGuess = g.getNextGuess();
 		
 		for (int i=0;i<10;i++) {
@@ -46,8 +44,7 @@ public class CheatsPanel extends JPanel implements ActionListener {
 			}
 		}
 		
-		numLabelsList.get(currentLabel).setText(currentGuess.toString());
-		currentLabel++;
+		numLabelsList.get(currentIndex / 4).setText(currentGuess.toString());
 		
 		btnCorrect = new JButton();
 		btnCorrect.setBorderPainted(false);
@@ -107,8 +104,8 @@ public class CheatsPanel extends JPanel implements ActionListener {
 				patternList[currentIndex % 4] = 0;
 				labelsList.get(currentIndex - 1).setIcon(null);
 				currentIndex--;
-				return;
 			}
+			return;
 		}
 		
 		// Make a guess
@@ -125,8 +122,7 @@ public class CheatsPanel extends JPanel implements ActionListener {
 				return;
 			}
 			currentGuess = g.getNextGuess();
-			numLabelsList.get(currentLabel).setText(currentGuess.toString());
-			currentLabel++;
+			numLabelsList.get(currentIndex / 4).setText(currentGuess.toString());
 
 			
 		}
