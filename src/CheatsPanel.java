@@ -103,6 +103,7 @@ public class CheatsPanel extends JPanel implements ActionListener, KeyListener {
 		this.requestFocus();
 	}
 	
+	// make a move with type
 	private void addResult(int type) {
 		switch (type) {
 		case Pattern.CORRECT:
@@ -132,11 +133,7 @@ public class CheatsPanel extends JPanel implements ActionListener, KeyListener {
 					setup();
 					return;
 				}
-				JOptionPane.showMessageDialog(this, "Correct Answer is: " + g.getNextGuess() + ", Game will restart...","I win!!!", JOptionPane.INFORMATION_MESSAGE,new Icon() {
-					public void paintIcon(Component c, Graphics g, int x, int y) {}
-					public int getIconWidth() {return 0;}
-					public int getIconHeight() {return 0;}
-				});
+				JOptionPane.showMessageDialog(this, "Correct Answer is: " + g.getNextGuess() + ", Game will restart...","I win!!!", JOptionPane.INFORMATION_MESSAGE);
 				setup();
 				return;
 			}
@@ -145,6 +142,26 @@ public class CheatsPanel extends JPanel implements ActionListener, KeyListener {
 		}
 	}
 	
+	//undo a move
+	private void undo() {
+		if (currentIndex % 4 > 0) {
+			patternList[currentIndex % 4] = 0;
+			labelsList.get(currentIndex - 1).setIcon(null);
+			currentIndex--;
+		} else if (currentIndex != 0) {
+			g.revert(1);
+			Guess prevGuess = guessHistory.remove(guessHistory.size() - 1);
+			currentGuess = prevGuess.getComb();
+			patternList = prevGuess.getPtn().toArray();
+			patternList[currentIndex % 4] = 0;
+			labelsList.get(currentIndex - 1).setIcon(null);
+			numLabelsList.get(currentIndex / 4).setText(null);
+			currentIndex--;
+		}
+	}
+	
+	
+	//Key Listener
 	public void keyPressed(KeyEvent event) {
 		switch(event.getKeyCode()) {
 		case KeyEvent.VK_Q:
@@ -162,6 +179,9 @@ public class CheatsPanel extends JPanel implements ActionListener, KeyListener {
 		case KeyEvent.VK_C:
 			addResult(Pattern.WRONG);
 			break;
+		case KeyEvent.VK_BACK_SPACE:
+			undo();
+			break;
 		default:
 		}
 	}
@@ -172,6 +192,7 @@ public class CheatsPanel extends JPanel implements ActionListener, KeyListener {
 
 	}
 	
+	//Action Listener
 	public void actionPerformed(ActionEvent event) {
 		JButton source = (JButton)(event.getSource());
 		if (source == btnCorrect) {
@@ -182,22 +203,8 @@ public class CheatsPanel extends JPanel implements ActionListener, KeyListener {
 			addResult(Pattern.WRONG);
 		} else if (source == btnRestart) {
 			setup();
-			return;
 		} else if (source == btnUndo) {
-			if (currentIndex % 4 > 0) {
-				patternList[currentIndex % 4] = 0;
-				labelsList.get(currentIndex - 1).setIcon(null);
-				currentIndex--;
-			} else if (currentIndex != 0) {
-				g.revert(1);
-				Guess prevGuess = guessHistory.remove(guessHistory.size() - 1);
-				currentGuess = prevGuess.getComb();
-				patternList = prevGuess.getPtn().toArray();
-				patternList[currentIndex % 4] = 0;
-				labelsList.get(currentIndex - 1).setIcon(null);
-				numLabelsList.get(currentIndex / 4).setText(null);
-				currentIndex--;
-			}
+			undo();
 		}
 		
 		requestFocus();
