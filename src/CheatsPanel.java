@@ -101,6 +101,7 @@ public class CheatsPanel extends JPanel implements ActionListener {
 			currentIndex++;
 		} else if (source == btnRestart) {
 			setup();
+			return;
 		} else if (source == btnUndo) {
 			if (currentIndex % 4 > 0) {
 				patternList[currentIndex % 4] = 0;
