@@ -12,7 +12,6 @@ public class CheatsPanel extends JPanel implements ActionListener {
 	private ArrayList<JLabel> labelsList;
 	private int currentIndex;
 	private int[] patternList;
-	private int patternIndex;
 	private ArrayList<JLabel> numLabelsList;
 	private int currentLabel;
 	private Combination currentGuess;
@@ -26,7 +25,6 @@ public class CheatsPanel extends JPanel implements ActionListener {
 		labelsList = new ArrayList<JLabel>();
 		currentIndex = 0;
 		patternList = new int[4];
-		patternIndex = 0;
 		numLabelsList = new ArrayList<JLabel>();
 		currentLabel = 0;
 		currentGuess = g.getNextGuess();
@@ -85,46 +83,36 @@ public class CheatsPanel extends JPanel implements ActionListener {
 	public CheatsPanel() {
 		setBackground(Color.orange);
 		setLayout(new GridLayout(11,6));
-		
 		setup();
-		
-
 	}
 	
 	public void actionPerformed(ActionEvent event) {
 		JButton source = (JButton)(event.getSource());
 		if (source == btnCorrect) {
 			labelsList.get(currentIndex).setIcon(new CorrectIcon());
+			patternList[currentIndex % 4] = Pattern.CORRECT;
 			currentIndex++;
-			patternList[patternIndex] = Pattern.CORRECT;
-			patternIndex++;
 		} else if (source == btnMatched) {
 			labelsList.get(currentIndex).setIcon(new MatchedIcon());
+			patternList[currentIndex % 4] = Pattern.MATCHED;
 			currentIndex++;
-			patternList[patternIndex] = Pattern.MATCHED;
-			patternIndex++;
 		} else if (source == btnWrong) {
 			labelsList.get(currentIndex).setIcon(new WrongIcon());
+			patternList[currentIndex % 4] = Pattern.WRONG;
 			currentIndex++;
-			patternList[patternIndex] = Pattern.WRONG;
-			patternIndex++;
 		} else if (source == btnRestart) {
 			setup();
 		} else if (source == btnUndo) {
-			if (patternIndex > 0) {
-				patternList[patternIndex] = 0;
-				labelsList.get(currentIndex-1).setIcon(null);
+			if (currentIndex % 4 > 0) {
+				patternList[currentIndex % 4] = 0;
+				labelsList.get(currentIndex - 1).setIcon(null);
 				currentIndex--;
-				patternIndex--;
-				System.out.println(currentIndex);
-				System.out.println(patternIndex);
 				return;
 			}
 		}
 		
 		// Make a guess
-		if (patternIndex == 4) {
-			patternIndex = 0;
+		if (currentIndex % 4 == 0) {
 			g.makeGuess(new Guess(currentGuess, new Pattern(patternList)));
 			if (g.getRemain() <= 1) {
 				if (g.getRemain() == 0) {
