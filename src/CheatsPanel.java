@@ -100,7 +100,7 @@ public class CheatsPanel extends JPanel implements ActionListener, KeyListener {
 		setLayout(new GridLayout(11,6));
 		setup();
 		addKeyListener(this);
-		this.requestFocus();
+		this.setFocusTraversalKeysEnabled(false);
 	}
 	
 	// make a move with type
