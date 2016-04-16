@@ -1,4 +1,3 @@
-NumSolver
-=========
+= NumSolver
 
 "那么问题来了"游戏作弊器
