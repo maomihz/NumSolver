@@ -13,28 +13,27 @@ public class Pattern {
 	private int numWrong;
 	
 	public Pattern() {
-		this(0,0,4);
+		this(0,0,4); //Default to all wrong
 	}
 	
 	public Pattern(int crt,int mch,int wrn) {
 		numCorrect = crt;
 		numMatched = mch;
 		numWrong = wrn;
-
-	}
-	public Pattern(String ptn) {
-		if (ptn.length() < 2 || ptn.length() > 3) throw new IllegalArgumentException();
-		numCorrect = Integer.parseInt(ptn.substring(0,1));
-		numMatched = Integer.parseInt(ptn.substring(1,2));
-		if (ptn.length() == 2) {
-			numWrong = 4-numCorrect-numMatched;
-		} else {
-			numWrong = Integer.parseInt(ptn.substring(2,3));
-		}
 	}
 	
-	public Pattern(int[] abstractPattern) {
-		int crt=0, mch=0, wrn=0;
+	public Pattern(String ptn) {
+		if (ptn.length() != 3) throw new IllegalArgumentException("Pattern String format incorrect");
+		numCorrect = Integer.parseInt(ptn.substring(0,1));
+		numMatched = Integer.parseInt(ptn.substring(1,2));
+		numWrong = Integer.parseInt(ptn.substring(2,3));
+	}
+	
+	public Pattern(int[] abstractPattern) { //{CORRECT, CORRECT, CORRECT, CORRECT}
+		if (abstractPattern.length != 4) throw new IllegalArgumentException("Pattern Array format incorrect");
+		int crt = 0;
+		int mch = 0;
+		int wrn = 0;
 		for (int i=0;i<abstractPattern.length;i++) {
 			if (abstractPattern[i] == CORRECT) crt++;
 			if (abstractPattern[i] == MATCHED) mch++;
@@ -46,9 +45,13 @@ public class Pattern {
 	}
 	
 	public boolean checkValid() {
-		return getCorrect() + getMatched() + getWrong() == 4 && getCorrect() >= 0 && getMatched() >= 0 && getWrong() >= 0;
+		return getCorrect() + getMatched() + getWrong() == 4 &&
+				getCorrect() >= 0 && 
+				getMatched() >= 0 && 
+				getWrong() >= 0;
 	}
 	
+	//Accessor Methods
 	public int getCorrect() {
 		return numCorrect;
 	}
@@ -62,6 +65,7 @@ public class Pattern {
 	public String toString() {
 		return String.format("%d, %d, %d", numCorrect, numMatched, numWrong);
 	}
+	
 	public Icon[] toIcon(int size) {
 		Icon[] icons = new Icon[4];
 		int index = 0;
