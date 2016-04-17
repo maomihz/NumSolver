@@ -1,3 +1,6 @@
+package com.maomihz.gui.components;
+import com.maomihz.core.Combination;
+import com.maomihz.core.Pattern;
 
 public class Guess {
 	private Combination num;

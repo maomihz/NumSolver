@@ -1,21 +1,21 @@
+package com.maomihz.gui.icons;
 import java.awt.Component;
 import java.awt.Graphics;
 
 import javax.swing.Icon;
 
 
-public class WrongIcon implements Icon {
+public class CorrectIcon implements Icon {
 	private int size;
-	public WrongIcon() {
+	public CorrectIcon() {
 		this(25);
 	}
-	public WrongIcon(int size) {
+	public CorrectIcon(int size) {
 		this.size = size;
 	}
 	@Override
 	public void paintIcon(Component c, Graphics g, int x, int y) {
-		g.drawOval(x,y,size, size);
-		g.drawLine(x+size, y, x, y+size);
+		g.fillOval(x, y, size, size);
 
 	}
 

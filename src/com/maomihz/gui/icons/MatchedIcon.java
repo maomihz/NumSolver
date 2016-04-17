@@ -1,3 +1,4 @@
+package com.maomihz.gui.icons;
 import java.awt.Component;
 import java.awt.Graphics;
 

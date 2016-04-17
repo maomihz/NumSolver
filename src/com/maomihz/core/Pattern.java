@@ -1,4 +1,9 @@
+package com.maomihz.core;
 import javax.swing.Icon;
+
+import com.maomihz.gui.icons.CorrectIcon;
+import com.maomihz.gui.icons.MatchedIcon;
+import com.maomihz.gui.icons.WrongIcon;
 
 
 public class Pattern {

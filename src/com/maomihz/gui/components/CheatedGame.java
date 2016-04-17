@@ -1,5 +1,8 @@
+package com.maomihz.gui.components;
 import java.util.LinkedList;
 import java.util.List;
+
+import com.maomihz.core.Combination;
 
 
 public class CheatedGame {

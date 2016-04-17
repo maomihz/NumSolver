@@ -1,3 +1,4 @@
+package com.maomihz.core;
 
 public class Combination {
 	private byte[] numbers = new byte[4]; //the number combination are held by a byte array

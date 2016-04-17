@@ -1,5 +1,8 @@
+package com.maomihz.core;
 import java.util.ArrayList;
 import java.util.List;
+
+import com.maomihz.gui.components.Guess;
 public class Game {
 
 	private List<Guess> guesses;

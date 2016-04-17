@@ -1,3 +1,4 @@
+package com.maomihz.gui.components;
 import java.awt.BorderLayout;
 
 import javax.swing.JFrame;

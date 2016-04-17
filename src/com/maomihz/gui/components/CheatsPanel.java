@@ -1,3 +1,4 @@
+package com.maomihz.gui.components;
 import javax.swing.JPanel;
 
 import java.awt.*;
@@ -8,6 +9,12 @@ import java.util.ArrayList;
 import java.awt.event.*;
 
 import javax.swing.event.*;
+
+import com.maomihz.core.Combination;
+import com.maomihz.core.Pattern;
+import com.maomihz.gui.icons.CorrectIcon;
+import com.maomihz.gui.icons.MatchedIcon;
+import com.maomihz.gui.icons.WrongIcon;
 
 
 public class CheatsPanel extends JPanel implements ActionListener, KeyListener {
