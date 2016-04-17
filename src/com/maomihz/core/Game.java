@@ -1,10 +1,8 @@
 package com.maomihz.core;
 import java.util.ArrayList;
 import java.util.List;
-
-import com.maomihz.gui.components.Guess;
 public class Game {
-
+	
 	private List<Guess> guesses;
 	private Combination correctAns;
 	public Game() {
@@ -24,7 +22,7 @@ public class Game {
 	}
 	
 	public Pattern makeGuess(Combination g) {
-		Pattern ptn = g.matches(correctAns);
+		Pattern ptn = g.match(correctAns);
 		guesses.add(new Guess(g, ptn));
 		return ptn;
 	}
