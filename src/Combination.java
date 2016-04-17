@@ -47,7 +47,8 @@ public class Combination {
 					return false;
 				}
 			}
-			if (getDigit(i) == 0) return false;
+			if (getDigit(i) == 0) 
+				return false;
 		}
 		return true;
 	}
@@ -59,18 +60,20 @@ public class Combination {
 		return (int)numbers[index];
 	}
 	
-	
-	public Pattern matches(Combination correctAnswer) {		
+	/*
+	 * match two Combination and yield a Pattern
+	 */
+	public Pattern match(Combination another) {		
 		int crt = 0;
 		int mch = 0;
 		
 		for (int i=0;i<4;i++) {
-			if (correctAnswer.getDigit(i) == numbers[i]) crt++;
+			if (another.getDigit(i) == numbers[i]) crt++;
 		}
 
 		for (int i=0;i<4;i++) {
 			for (int j=0;j<4;j++) {
-				if (i != j && correctAnswer.getDigit(j) == numbers[i]){
+				if (i != j && another.getDigit(j) == numbers[i]){
 					mch++;
 					break;
 				}
@@ -101,7 +104,7 @@ public class Combination {
 		return cb;
 	}
 	
-	public static Pattern matches(Combination ans, Combination correctAns) {
-		return ans.matches(correctAns);
+	public static Pattern match(Combination ans, Combination correctAns) {
+		return ans.match(correctAns);
 	}
 }

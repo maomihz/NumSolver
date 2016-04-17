@@ -62,6 +62,7 @@ public class Pattern {
 		return numWrong;
 	}
 	
+	//"1, 1, 2"
 	public String toString() {
 		return String.format("%d, %d, %d", numCorrect, numMatched, numWrong);
 	}
@@ -84,6 +85,7 @@ public class Pattern {
 		return icons;
 		
 	}
+	
 	public int[] toArray() {
 		int[] ary = new int[4];
 		int index = 0;
@@ -110,6 +112,7 @@ public class Pattern {
 		return false;
 	}
 	
+	// Generate a random pattern
 	public static Pattern randPtn() {
 		int i1 = (int)(Math.random() * 5);
 		int i2 = (int)(Math.random() * (4 - i1));
