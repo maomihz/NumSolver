@@ -10,6 +10,7 @@ import java.awt.event.*;
 
 import javax.swing.event.*;
 
+import com.maomihz.core.CheatedGame;
 import com.maomihz.core.Combination;
 import com.maomihz.core.Guess;
 import com.maomihz.core.Pattern;

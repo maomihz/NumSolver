@@ -1,9 +1,6 @@
-package com.maomihz.gui.components;
+package com.maomihz.core;
 import java.util.LinkedList;
 import java.util.List;
-
-import com.maomihz.core.Combination;
-import com.maomihz.core.Guess;
 
 
 public class CheatedGame {
