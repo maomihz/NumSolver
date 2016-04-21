@@ -1,6 +1,7 @@
 import java.awt.Component;
 import java.awt.Graphics;
-
+import java.awt.Graphics2D;
+import java.awt.BasicStroke;
 import javax.swing.Icon;
 
 
@@ -10,11 +11,17 @@ public class MatchedIcon implements Icon {
 		this(25);
 	}
 	public MatchedIcon(int size) {
-		this.size = size;
+		if (size >= 4) {
+			this.size = size;
+		} else {
+			this.size = 4;
+		}
 	}
 	@Override
 	public void paintIcon(Component c, Graphics g, int x, int y) {
-		g.drawOval(x, y, size, size);
+		Graphics2D g2d = (Graphics2D)g;
+		g2d.setStroke(new BasicStroke(2f, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND));
+		g2d.drawOval(x+2, y+2, size-4, size-4);
 
 	}
 

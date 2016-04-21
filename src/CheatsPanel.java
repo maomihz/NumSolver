@@ -185,12 +185,8 @@ public class CheatsPanel extends JPanel implements ActionListener, KeyListener {
 		default:
 		}
 	}
-	public void keyReleased(KeyEvent event) {
-		
-	}
-	public void keyTyped(KeyEvent event) {
-
-	}
+	public void keyReleased(KeyEvent event) {}
+	public void keyTyped(KeyEvent event) {}
 	
 	//Action Listener
 	public void actionPerformed(ActionEvent event) {
