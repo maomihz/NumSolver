@@ -36,9 +36,12 @@ public class CheatsPanel extends JPanel implements ActionListener, KeyListener {
 		for (int i=0;i<10;i++) {
 			JLabel btn = new JLabel(String.valueOf(i+1));
 			btn.setHorizontalAlignment(SwingConstants.CENTER);
+			btn.setBackground(Color.green);
+			btn.setOpaque(true);
 			add(btn);
+			
 			JLabel label = new JLabel();
-			label.setBackground(Color.green);
+			label.setBackground(Color.cyan);
 			label.setOpaque(true);
 			label.setHorizontalAlignment(SwingConstants.CENTER);
 			add(label);
@@ -96,7 +99,7 @@ public class CheatsPanel extends JPanel implements ActionListener, KeyListener {
 	
 	
 	public CheatsPanel() {
-		setBackground(Color.orange);
+		setBackground(Color.white);
 		setLayout(new GridLayout(11,6));
 		setup();
 		addKeyListener(this);
